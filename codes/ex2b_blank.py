@@ -9,12 +9,29 @@ import math
 # You can define functions here
 # NO OPENCV FUNCTION IS ALLOWED HERE
 
+# Implement bilateral filtering using a greyscale cat.png as an input.
 
+def bilateral_filter_gray(img, kernel, sigma1, sigma2):
+    H, W = img.shape
+    pad = kernel // 2
 
+    out = np.zeros((H + pad * 2, W + pad * 2))
+    out[pad:pad + H, pad:pad + W] = img
+    K = np.zeros((kernel, kernel))
+    for x in range(-pad, -pad + kernel):
+        for y in range(-pad, -pad + kernel):
+            K[y + pad, x + pad] = np.exp(
+                -(x ** 2 + y ** 2) / (2 * (sigma1 ** 2)) - (x ** 2 + y ** 2) / (2 * (sigma2 ** 2)))
 
-
-
-
+    # K=K/(2 * np.pi * sigma1 * sigma2)
+    K = K / K.sum()
+    tmp = out.copy()
+    # filtering
+    for y in range(H):
+        for x in range(W):
+            out[pad + y, pad + x] = np.sum(K * tmp[y: y + kernel, x: x + kernel])
+    out = out[pad: pad + H, pad: pad + W]
+    return out
 
 
 

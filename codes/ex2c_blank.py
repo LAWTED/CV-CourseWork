@@ -11,7 +11,20 @@ from matplotlib import pyplot as plt
 # NO OPENCV FUNCTION IS ALLOWED HERE
 
 
- 
+# Generate images with gaussian noise (ex2c_gnoise.jpg) and salt noise (ex2c_inoise.jpg) using a greyscale cat.png as an input.
+
+def median_filter_gray(img, kernel):
+    H, W = img.shape
+    pad = kernel // 2
+    out = np.zeros((H + pad * 2, W + pad * 2))
+    out[pad:pad + H, pad:pad + W] = img
+    tmp = out.copy()
+    # filtering
+    for y in range(H):
+        for x in range(W):
+            out[pad + y, pad + x] = np.median(tmp[y: y + kernel, x: x + kernel])
+    out = out[pad: pad + H, pad: pad + W]
+    return out
 
 
 
