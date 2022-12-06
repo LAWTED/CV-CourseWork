@@ -54,7 +54,7 @@ while success:
 
     # save the frame
     if count in [1, 21, 31, 61 ,90]:
-        cv2.imwrite('../results/ex1-frame%d.jpg' % count, img_array[count-1])
+        cv2.imwrite('../results/ex1a/frame%d.jpg' % count, img_array[count-1])
     success, frame = cap.read()
     count += 1
 
