@@ -18,6 +18,18 @@ def matching_cost_computation(matching_cost, left_img, right_img, d_max):
 def cost_aggregation_window(aggregated_cost, matching_cost, kernel, d_max):
     # --------------------------------- WRITE YOUR CODE HERE ---------------------------------#
     # NO OPENCV FUNCTION IS ALLOWED HERE
+    h, w = left_img.shape
+    for y in range(h):
+        for x in range(w):
+            for d in range(d_max):
+                for k in range(-kernel//2, kernel//2+1):
+                    dy, dx = y + k, x + k
+                    if dy >= 0 and dy < h and dx >= 0 and dx < w:
+                        aggregated_cost[y, x, d] += matching_cost[dy, dx, d]
+
+
+
+
 
 
 
